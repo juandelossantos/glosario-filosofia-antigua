@@ -1,24 +1,56 @@
-// Interactive search functionality
+// Interactive search functionality with alphabet index
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const glossaryGrid = document.getElementById('glossaryGrid');
     const termCards = document.querySelectorAll('.term-card');
     const noResults = document.getElementById('noResults');
+    const letterButtons = document.querySelectorAll('.letter-btn');
+    
+    let currentFilter = 'todos'; // Track current filter
 
-    // Search functionality
-    function performSearch(searchTerm) {
-        const query = searchTerm.toLowerCase().trim();
+    // Initialize letter counts and availability
+    function initializeAlphabetIndex() {
+        const letterCounts = {};
+        
+        // Count terms for each letter
+        termCards.forEach(card => {
+            const firstLetter = card.getAttribute('data-first-letter');
+            letterCounts[firstLetter] = (letterCounts[firstLetter] || 0) + 1;
+        });
+        
+        // Update button states and counts
+        letterButtons.forEach(button => {
+            const letter = button.getAttribute('data-letter');
+            
+            if (letter === 'todos') {
+                button.setAttribute('data-count', termCards.length);
+            } else {
+                const count = letterCounts[letter] || 0;
+                button.setAttribute('data-count', count);
+                
+                if (count === 0) {
+                    button.classList.add('disabled');
+                    button.disabled = true;
+                }
+            }
+        });
+    }
+
+    // Filter by letter
+    function filterByLetter(selectedLetter) {
+        currentFilter = selectedLetter;
         let visibleCards = 0;
+        
+        // Clear search input when filtering by letter
+        if (selectedLetter !== 'todos') {
+            searchInput.value = '';
+        }
 
         termCards.forEach(card => {
-            const searchData = card.getAttribute('data-term').toLowerCase();
-            const cardText = card.textContent.toLowerCase();
-            
-            const isMatch = searchData.includes(query) || 
-                          cardText.includes(query) || 
-                          query === '';
+            const cardLetter = card.getAttribute('data-first-letter');
+            const shouldShow = selectedLetter === 'todos' || cardLetter === selectedLetter;
 
-            if (isMatch) {
+            if (shouldShow) {
                 card.classList.remove('hidden');
                 card.style.display = 'block';
                 visibleCards++;
@@ -32,36 +64,138 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Show/hide no results message
-        if (visibleCards === 0 && query !== '') {
+        // Update active button
+        letterButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-letter') === selectedLetter) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Show/hide no results
+        updateNoResults(visibleCards, selectedLetter !== 'todos' ? `letra ${selectedLetter}` : '');
+        
+        // Update URL
+        updateURL(selectedLetter, '');
+    }
+
+    // Search functionality
+    function performSearch(searchTerm) {
+        const query = searchTerm.toLowerCase().trim();
+        let visibleCards = 0;
+
+        // If there's a search term, reset letter filter
+        if (query) {
+            currentFilter = 'todos';
+            letterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-letter') === 'todos') {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        termCards.forEach(card => {
+            const searchData = card.getAttribute('data-term').toLowerCase();
+            const cardText = card.textContent.toLowerCase();
+            const cardLetter = card.getAttribute('data-first-letter');
+            
+            const matchesSearch = searchData.includes(query) || 
+                                cardText.includes(query) || 
+                                query === '';
+            
+            const matchesLetter = currentFilter === 'todos' || 
+                                cardLetter === currentFilter;
+
+            const shouldShow = matchesSearch && matchesLetter;
+
+            if (shouldShow) {
+                card.classList.remove('hidden');
+                card.style.display = 'block';
+                visibleCards++;
+            } else {
+                card.classList.add('hidden');
+                setTimeout(() => {
+                    if (card.classList.contains('hidden')) {
+                        card.style.display = 'none';
+                    }
+                }, 300);
+            }
+        });
+
+        updateNoResults(visibleCards, query);
+        updateURL(currentFilter, query);
+    }
+
+    // Update no results message
+    function updateNoResults(visibleCards, searchContext) {
+        if (visibleCards === 0 && searchContext) {
             noResults.style.display = 'block';
             glossaryGrid.style.display = 'none';
+            
+            const message = searchContext.startsWith('letra') 
+                ? `No hay términos que comiencen con la ${searchContext}.`
+                : `No se encontraron términos que coincidan con "${searchContext}".`;
+            
+            noResults.querySelector('p').textContent = message;
         } else {
             noResults.style.display = 'none';
             glossaryGrid.style.display = 'grid';
         }
+    }
 
-        // Update URL with search parameter
+    // Update URL with current state
+    function updateURL(letter, search) {
         const url = new URL(window.location);
-        if (query) {
-            url.searchParams.set('search', query);
+        
+        if (letter !== 'todos') {
+            url.searchParams.set('letter', letter);
+        } else {
+            url.searchParams.delete('letter');
+        }
+        
+        if (search) {
+            url.searchParams.set('search', search);
         } else {
             url.searchParams.delete('search');
         }
+        
         window.history.replaceState({}, '', url);
     }
+
+    // Letter button click handlers
+    letterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (this.disabled) return;
+            
+            const selectedLetter = this.getAttribute('data-letter');
+            filterByLetter(selectedLetter);
+            
+            // Smooth scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
 
     // Real-time search
     searchInput.addEventListener('input', function() {
         performSearch(this.value);
     });
 
-    // Handle search on page load (if URL contains search parameter)
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialSearch = urlParams.get('search');
-    if (initialSearch) {
-        searchInput.value = initialSearch;
-        performSearch(initialSearch);
+    // Handle page load with URL parameters
+    function handleInitialState() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialLetter = urlParams.get('letter') || 'todos';
+        const initialSearch = urlParams.get('search') || '';
+        
+        if (initialSearch) {
+            searchInput.value = initialSearch;
+            performSearch(initialSearch);
+        } else if (initialLetter !== 'todos') {
+            filterByLetter(initialLetter);
+        }
     }
 
     // Keyboard shortcuts
@@ -77,31 +211,46 @@ document.addEventListener('DOMContentLoaded', function() {
             searchInput.value = '';
             performSearch('');
         }
+
+        // Number keys for quick letter selection
+        if (event.key >= '1' && event.key <= '9') {
+            const buttonIndex = parseInt(event.key) - 1;
+            const button = letterButtons[buttonIndex];
+            if (button && !button.disabled) {
+                button.click();
+            }
+        }
     });
 
-    // Smooth scroll for better UX
-    function smoothScrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    // Add click handlers for term cards
+    // Enhanced term card interactions
     termCards.forEach(card => {
         card.addEventListener('click', function(event) {
-            // Only add interactivity if clicked on the card itself, not on text selection
-            if (event.detail === 2) { // Double click
+            // Double click for quick search
+            if (event.detail === 2) {
                 const greekTerm = card.querySelector('.greek-term').textContent;
                 searchInput.value = greekTerm;
                 performSearch(greekTerm);
-                smoothScrollToTop();
+                searchInput.focus();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
 
-        // Add hover effect for better interactivity indication
+        // Hover effects
         card.addEventListener('mouseenter', function() {
             this.style.cursor = 'pointer';
+        });
+
+        // Keyboard navigation for cards
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                const greekTerm = this.querySelector('.greek-term').textContent;
+                searchInput.value = greekTerm;
+                performSearch(greekTerm);
+                searchInput.focus();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         });
     });
 
@@ -120,116 +269,49 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Observe all term cards for scroll animations
     termCards.forEach(card => {
         observer.observe(card);
     });
 
-    // Add loading state for better UX
-    function showLoadingState() {
-        termCards.forEach(card => {
-            card.style.opacity = '0.6';
-            card.style.pointerEvents = 'none';
-        });
-    }
-
-    function hideLoadingState() {
-        termCards.forEach(card => {
-            card.style.opacity = '1';
-            card.style.pointerEvents = 'auto';
-        });
-    }
-
-    // Debounce search for better performance
+    // Performance optimizations
     let searchTimeout;
-    const originalInputHandler = searchInput.oninput;
-    
-    searchInput.oninput = function() {
+    function debouncedSearch() {
         clearTimeout(searchTimeout);
-        showLoadingState();
-        
         searchTimeout = setTimeout(() => {
-            performSearch(this.value);
-            hideLoadingState();
+            performSearch(searchInput.value);
         }, 150);
-    };
-
-    // Add keyboard navigation for accessibility
-    searchInput.addEventListener('keydown', function(event) {
-        if (event.key === 'ArrowDown') {
-            event.preventDefault();
-            const firstVisibleCard = document.querySelector('.term-card:not(.hidden)');
-            if (firstVisibleCard) {
-                firstVisibleCard.focus();
-            }
-        }
-    });
-
-    // Make term cards focusable and navigable
-    termCards.forEach((card, index) => {
-        card.setAttribute('tabindex', '0');
-        
-        card.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
-                event.preventDefault();
-                const nextCard = this.nextElementSibling;
-                if (nextCard && !nextCard.classList.contains('hidden')) {
-                    nextCard.focus();
-                }
-            } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
-                event.preventDefault();
-                const prevCard = this.previousElementSibling;
-                if (prevCard && !prevCard.classList.contains('hidden')) {
-                    prevCard.focus();
-                } else {
-                    searchInput.focus();
-                }
-            } else if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                const greekTerm = this.querySelector('.greek-term').textContent;
-                searchInput.value = greekTerm;
-                performSearch(greekTerm);
-                searchInput.focus();
-                smoothScrollToTop();
-            }
-        });
-    });
-
-    // Add visual feedback for interactions
-    termCards.forEach(card => {
-        card.addEventListener('focus', function() {
-            this.style.outline = '2px solid var(--accent-color)';
-            this.style.outlineOffset = '2px';
-        });
-
-        card.addEventListener('blur', function() {
-            this.style.outline = 'none';
-        });
-    });
-
-    // Performance optimization: Virtual scrolling for large datasets
-    // (Currently not needed with 9 terms, but ready for expansion)
-    
-    // Analytics and user experience tracking (placeholder)
-    function trackUserInteraction(action, term = null) {
-        // This would be where you'd send analytics data
-        console.log(`User interaction: ${action}`, term ? `Term: ${term}` : '');
     }
 
-    // Track search interactions
+    // Replace direct search with debounced version for better performance
+    searchInput.removeEventListener('input', performSearch);
+    searchInput.addEventListener('input', debouncedSearch);
+
+    // Analytics tracking
+    function trackInteraction(action, details = {}) {
+        // Placeholder for analytics
+        console.log(`User interaction: ${action}`, details);
+    }
+
+    // Track letter filter usage
+    letterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            trackInteraction('letter_filter', {
+                letter: this.getAttribute('data-letter'),
+                count: this.getAttribute('data-count')
+            });
+        });
+    });
+
+    // Track search usage
     searchInput.addEventListener('input', function() {
         if (this.value.length > 2) {
-            trackUserInteraction('search', this.value);
+            trackInteraction('search', { query: this.value });
         }
     });
 
-    // Track term card interactions
-    termCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const term = this.querySelector('.greek-term').textContent;
-            trackUserInteraction('term_click', term);
-        });
-    });
-
-    console.log('Glosario interactivo cargado correctamente');
+    // Initialize the application
+    initializeAlphabetIndex();
+    handleInitialState();
+    
+    console.log('Glosario interactivo con índice alfabético cargado correctamente');
 });

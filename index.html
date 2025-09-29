@@ -13,16 +13,32 @@
             <div class="header-content">
                 <h1 class="title">Glosario de Conceptos Fundamentales del Pensamiento Griego Antiguo</h1>
                 <p class="subtitle">Análisis de "La Metafísica de Parménides" de García Morente</p>
+                
+                <!-- Índice alfabético -->
+                <div class="alphabet-index" id="alphabetIndex">
+                    <h3 class="index-title">Índice Alfabético</h3>
+                    <div class="alphabet-grid">
+                        <button class="letter-btn" data-letter="α">Α α</button>
+                        <button class="letter-btn" data-letter="δ">Δ δ</button>
+                        <button class="letter-btn" data-letter="ζ">Ζ ζ</button>
+                        <button class="letter-btn" data-letter="κ">Κ κ</button>
+                        <button class="letter-btn" data-letter="λ">Λ λ</button>
+                        <button class="letter-btn" data-letter="ν">Ν ν</button>
+                        <button class="letter-btn" data-letter="ο">Ο ο</button>
+                        <button class="letter-btn" data-letter="τ">Τ τ</button>
+                        <button class="letter-btn active" data-letter="todos">Todos</button>
+                    </div>
+                </div>
+                
                 <div class="header-actions">
                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar términos...">
-                    <button class="nav-btn" onclick="location.href='referencias.html'">Referencias</button>
                 </div>
             </div>
         </header>
 
         <div class="glossary-grid" id="glossaryGrid">
             <!-- Término 1: Τὸ ὄν (El Ser) -->
-            <div class="term-card" data-term="τὸ ὄν el ser">
+            <div class="term-card" data-term="τὸ ὄν el ser" data-first-letter="τ">
                 <div class="term-header">
                     <h2 class="greek-term">Τὸ ὄν</h2>
                     <div class="term-info">
@@ -47,7 +63,7 @@
             </div>
 
             <!-- Término 2: Τὸ μὴ ὄν (El No-Ser) -->
-            <div class="term-card" data-term="τὸ μὴ ὄν el no-ser">
+            <div class="term-card" data-term="τὸ μὴ ὄν el no-ser" data-first-letter="τ">
                 <div class="term-header">
                     <h2 class="greek-term">Τὸ μὴ ὄν</h2>
                     <div class="term-info">
@@ -72,7 +88,7 @@
             </div>
 
             <!-- Término 3: Ἀλήθεια (La Verdad) -->
-            <div class="term-card" data-term="ἀλήθεια la verdad">
+            <div class="term-card" data-term="ἀλήθεια la verdad" data-first-letter="α">
                 <div class="term-header">
                     <h2 class="greek-term">Ἀλήθεια</h2>
                     <div class="term-info">
@@ -97,7 +113,7 @@
             </div>
 
             <!-- Término 4: Δόξα (La Opinión) -->
-            <div class="term-card" data-term="δόξα la opinión">
+            <div class="term-card" data-term="δόξα la opinión" data-first-letter="δ">
                 <div class="term-header">
                     <h2 class="greek-term">Δόξα</h2>
                     <div class="term-info">
@@ -122,7 +138,7 @@
             </div>
 
             <!-- Término 5: Λόγος (La Razón) -->
-            <div class="term-card" data-term="λόγος la razón">
+            <div class="term-card" data-term="λόγος la razón" data-first-letter="λ">
                 <div class="term-header">
                     <h2 class="greek-term">Λόγος</h2>
                     <div class="term-info">
@@ -147,7 +163,7 @@
             </div>
 
             <!-- Término 6: Νοῦς (El Intelecto) -->
-            <div class="term-card" data-term="νοῦς el intelecto">
+            <div class="term-card" data-term="νοῦς el intelecto" data-first-letter="ν">
                 <div class="term-header">
                     <h2 class="greek-term">Νοῦς</h2>
                     <div class="term-info">
@@ -172,7 +188,7 @@
             </div>
 
             <!-- Término 7: Ταυτότης (El Principio de Identidad) -->
-            <div class="term-card" data-term="ταυτότης principio identidad">
+            <div class="term-card" data-term="ταυτότης principio identidad" data-first-letter="τ">
                 <div class="term-header">
                     <h2 class="greek-term">Ταυτότης/Ἴδιον</h2>
                     <div class="term-info">
@@ -197,7 +213,7 @@
             </div>
 
             <!-- Término 8: Κόσμος (El Mundo) -->
-            <div class="term-card" data-term="κόσμος el mundo universo">
+            <div class="term-card" data-term="κόσμος el mundo universo" data-first-letter="κ">
                 <div class="term-header">
                     <h2 class="greek-term">Κόσμος</h2>
                     <div class="term-info">
@@ -222,7 +238,7 @@
             </div>
 
             <!-- Término 9: Διαλεκτική (La Dialéctica) -->
-            <div class="term-card" data-term="διαλεκτική la dialéctica">
+            <div class="term-card" data-term="διαλεκτική la dialéctica" data-first-letter="δ">
                 <div class="term-header">
                     <h2 class="greek-term">Διαλεκτική</h2>
                     <div class="term-info">
@@ -252,7 +268,21 @@
         </div>
 
         <footer class="footer">
-            <p><strong>Fuente principal:</strong> García Morente, M. (1938). Lecciones preliminares de filosofía: Lección V - La metafísica de Parménides. En <em>Lecciones preliminares de filosofía</em> (pp. 75-88). Editorial Porrúa.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <p><strong>Fuente principal:</strong> García Morente, M. (1938). Lecciones preliminares de filosofía: Lección V - La metafísica de Parménides. En <em>Lecciones preliminares de filosofía</em> (pp. 75-88). Editorial Porrúa.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <p><strong>Elaborado por:</strong> David Emilio Sierra Puentes para la asignatura Filosofía Antigua</p>
+                    <p><strong>Cátedra:</strong> Filosofía UNAD 2025</p>
+                    <p><strong>Profesora:</strong> Patricia Arias Riascos</p>
+                </div>
+                
+                <div class="footer-actions">
+                    <button class="nav-btn footer-btn" onclick="location.href='referencias.html'">📚 Referencias Bibliográficas</button>
+                </div>
+            </div>
         </footer>
     </div>
 

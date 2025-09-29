@@ -68,6 +68,72 @@ body {
     font-weight: 400;
 }
 
+/* Alphabet Index Styles */
+.alphabet-index {
+    margin-bottom: 32px;
+    padding: 24px;
+    background: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.index-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.alphabet-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-btn {
+    background: var(--background-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    min-width: 50px;
+    text-align: center;
+}
+
+.letter-btn:hover {
+    border-color: var(--accent-color);
+    background: linear-gradient(135deg, rgba(255, 123, 66, 0.1), rgba(255, 159, 112, 0.1));
+    transform: translateY(-2px);
+}
+
+.letter-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    border-color: var(--accent-color);
+    box-shadow: 0 2px 8px rgba(255, 123, 66, 0.3);
+}
+
+.letter-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: var(--background-secondary);
+}
+
+.letter-btn.disabled:hover {
+    transform: none;
+    border-color: var(--border-color);
+    background: var(--background-secondary);
+}
+
 .header-actions {
     display: flex;
     justify-content: center;
@@ -237,17 +303,46 @@ body {
 .footer {
     background: var(--background-primary);
     border-top: 1px solid var(--border-color);
-    padding: 32px 0;
+    padding: 40px 0;
     margin-top: 60px;
-    text-align: center;
 }
 
-.footer p {
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    padding: 20px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.footer-section p {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    max-width: 800px;
-    margin: 0 auto;
     line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+.footer-section p:last-child {
+    margin-bottom: 0;
+}
+
+.footer-actions {
+    text-align: center;
+    padding: 20px;
+}
+
+.footer-btn {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px var(--shadow-light);
 }
 
 /* Responsive design */
@@ -266,6 +361,21 @@ body {
     
     .subtitle {
         font-size: 1rem;
+    }
+    
+    .alphabet-index {
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .alphabet-grid {
+        gap: 6px;
+    }
+    
+    .letter-btn {
+        padding: 6px 8px;
+        font-size: 0.9rem;
+        min-width: 40px;
     }
     
     .header-actions {
@@ -289,6 +399,14 @@ body {
     .greek-term {
         font-size: 1.6rem;
     }
+    
+    .footer-content {
+        gap: 16px;
+    }
+    
+    .footer-section {
+        padding: 16px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -302,6 +420,16 @@ body {
     
     .meaning {
         font-size: 1rem;
+    }
+    
+    .alphabet-grid {
+        gap: 4px;
+    }
+    
+    .letter-btn {
+        padding: 4px 6px;
+        font-size: 0.8rem;
+        min-width: 35px;
     }
 }
 
@@ -323,7 +451,8 @@ body {
 
 /* Focus styles for accessibility */
 .search-input:focus,
-.nav-btn:focus {
+.nav-btn:focus,
+.letter-btn:focus {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
@@ -331,7 +460,9 @@ body {
 /* Print styles */
 @media print {
     .header-actions,
-    .nav-btn {
+    .nav-btn,
+    .alphabet-index,
+    .footer-actions {
         display: none;
     }
     
@@ -344,4 +475,36 @@ body {
     .greek-term {
         color: #000;
     }
+    
+    .footer-section {
+        background: none;
+        border: none;
+        padding: 10px 0;
+    }
+}
+
+/* Letter counter indicator */
+.letter-btn::after {
+    content: attr(data-count);
+    font-size: 0.7rem;
+    background: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    padding: 2px 4px;
+    margin-left: 4px;
+    min-width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.letter-btn.active::after {
+    background: white;
+    color: var(--accent-color);
+}
+
+.letter-btn.disabled::after {
+    display: none;
 }
