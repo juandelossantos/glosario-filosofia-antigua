@@ -513,7 +513,7 @@ body {
 .image-container {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 280px;
     margin-bottom: 16px;
     border-radius: 8px;
     overflow: hidden;
@@ -524,7 +524,7 @@ body {
 .concept-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: opacity 0.3s ease;
 }
 
@@ -655,7 +655,7 @@ body {
 .image-container {
     position: relative;
     width: 100%;
-    height: 300px; /* Increased from 200px to 300px */
+    height: 400px; /* Increased from 200px to 300px */
     margin-bottom: 16px;
     border-radius: 8px;
     overflow: hidden;
@@ -679,17 +679,42 @@ body {
 /* Responsive adjustments for larger image containers */
 @media (max-width: 768px) {
     .image-container {
-        height: 240px; /* Increased from 160px */
+        height: 320px; /* Increased from 160px */
     }
 }
 
 @media (max-width: 480px) {
     .image-container {
-        height: 200px; /* Increased from 140px */
+        height: 280px; /* Increased from 140px */
     }
     
     .image-credit {
         font-size: 0.75rem;
         padding: 6px 10px;
     }
+}
+
+/* Enhanced styling for object-fit: contain */
+.concept-image {
+    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    border-radius: 6px;
+}
+
+/* Subtle background pattern for better image visibility */
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 25% 25%, rgba(255, 123, 66, 0.02) 0%, transparent 50%),
+                      radial-gradient(circle at 75% 75%, rgba(255, 123, 66, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.concept-image {
+    position: relative;
+    z-index: 2;
 }
