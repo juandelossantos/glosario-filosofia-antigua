@@ -11,7 +11,7 @@
 
 ## 🎭 **Sugerencias por Concepto:**
 
-### 1. **Τὸ ὄν (El Ser)** → `ser.jpg`
+### 1. **Τὸ ὄν (El Ser)** → `ser.png`
 **Ideas de búsqueda:**
 - "ancient greek sculpture marble"
 - "philosophy contemplation statue"
@@ -23,7 +23,7 @@
 
 ---
 
-### 2. **Τὸ μὴ ὄν (El No-Ser)** → `no-ser.jpg`
+### 2. **Τὸ μὴ ὄν (El No-Ser)** → `no-ser.png`
 **Ideas de búsqueda:**
 - "empty void space cosmos"
 - "abstract darkness emptiness"
@@ -35,7 +35,7 @@
 
 ---
 
-### 3. **Ἀλήθεια (La Verdad)** → `verdad.jpg`
+### 3. **Ἀλήθεια (La Verdad)** → `verdad.png`
 **Ideas de búsqueda:**
 - "sunrise dawn light breakthrough"
 - "truth revelation light"
@@ -47,7 +47,7 @@
 
 ---
 
-### 4. **Δόξα (La Opinión)** → `opinion.jpg`
+### 4. **Δόξα (La Opinión)** → `opinion.png`
 **Ideas de búsqueda:**
 - "mirrors reflection illusion"
 - "shadow on wall cave"
@@ -59,7 +59,7 @@
 
 ---
 
-### 5. **Λόγος (La Razón)** → `razon.jpg`
+### 5. **Λόγος (La Razón)** → `razon.png`
 **Ideas de búsqueda:**
 - "ancient scroll manuscript"
 - "geometric patterns sacred geometry"
@@ -71,7 +71,7 @@
 
 ---
 
-### 6. **Νοῦς (El Intelecto)** → `intelecto.jpg`
+### 6. **Νοῦς (El Intelecto)** → `intelecto.png`
 **Ideas de búsqueda:**
 - "brain neurons connectivity"
 - "mind consciousness abstract"
@@ -83,7 +83,7 @@
 
 ---
 
-### 7. **Ταυτότης (Principio de Identidad)** → `identidad.jpg`
+### 7. **Ταυτότης (Principio de Identidad)** → `identidad.png`
 **Ideas de búsqueda:**
 - "perfect symmetry reflection"
 - "mathematical equality symbol"
@@ -95,7 +95,7 @@
 
 ---
 
-### 8. **Κόσμος (El Mundo)** → `cosmos.jpg`
+### 8. **Κόσμος (El Mundo)** → `cosmos.png`
 **Ideas de búsqueda:**
 - "ancient world map constellation"
 - "cosmic spiral galaxy"
@@ -107,7 +107,7 @@
 
 ---
 
-### 9. **Διαλεκτική (La Dialéctica)** → `dialectica.jpg`
+### 9. **Διαλεκτική (La Dialéctica)** → `dialectica.png`
 **Ideas de búsqueda:**
 - "ancient greek agora debate"
 - "philosophers discussion dialogue"
@@ -120,7 +120,7 @@
 ---
 
 ## 📐 **Especificaciones Técnicas Recomendadas:**
-- **Formato:** JPG o PNG
+- **Formato:** PNG
 - **Resolución:** Mínimo 800x600px
 - **Relación de aspecto:** 4:3 o 16:9
 - **Tamaño de archivo:** Máximo 200KB para web
@@ -135,12 +135,12 @@
 
 ## 📝 **Nombres de Archivos:**
 Los placeholders en el código ya están configurados para estos nombres:
-1. `ser.jpg`
-2. `no-ser.jpg`
-3. `verdad.jpg`
-4. `opinion.jpg`
-5. `razon.jpg`
-6. `intelecto.jpg`
-7. `identidad.jpg`
-8. `cosmos.jpg`
-9. `dialectica.jpg`
+1. `ser.png`
+2. `no-ser.png`
+3. `verdad.png`
+4. `opinion.png`
+5. `razon.png`
+6. `intelecto.png`
+7. `identidad.png`
+8. `cosmos.png`
+9. `dialectica.png`
