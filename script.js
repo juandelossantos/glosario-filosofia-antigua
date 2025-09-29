@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateURL(selectedLetter, '');
     }
 
-    // Search functionality
+    // Search functionality focused on Spanish content
     function performSearch(searchTerm) {
         const query = searchTerm.toLowerCase().trim();
         let visibleCards = 0;
@@ -97,12 +97,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         termCards.forEach(card => {
             const searchData = card.getAttribute('data-term').toLowerCase();
-            const cardText = card.textContent.toLowerCase();
             const cardLetter = card.getAttribute('data-first-letter');
             
-            const matchesSearch = searchData.includes(query) || 
-                                cardText.includes(query) || 
-                                query === '';
+            // Extract Spanish content for better search
+            const meaningElement = card.querySelector('.meaning');
+            const basicMeaningElement = card.querySelector('.basic-meaning');
+            const explanationElement = card.querySelector('.explanation');
+            
+            const meaning = meaningElement ? meaningElement.textContent.toLowerCase() : '';
+            const basicMeaning = basicMeaningElement ? basicMeaningElement.textContent.toLowerCase() : '';
+            const explanation = explanationElement ? explanationElement.textContent.toLowerCase() : '';
+            
+            // Search in keywords (data-term) and Spanish content
+            const matchesSearch = query === '' || 
+                                searchData.includes(query) ||
+                                meaning.includes(query) ||
+                                basicMeaning.includes(query) ||
+                                explanation.includes(query);
             
             const matchesLetter = currentFilter === 'todos' || 
                                 cardLetter === currentFilter;

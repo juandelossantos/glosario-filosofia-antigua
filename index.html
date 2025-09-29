@@ -14,29 +14,34 @@
                 <h1 class="title">Glosario de Conceptos Fundamentales del Pensamiento Griego Antiguo</h1>
                 <p class="subtitle">Análisis de "La Metafísica de Parménides" de García Morente</p>
                 
-                <!-- Índice alfabético -->
-                <div class="alphabet-index" id="alphabetIndex">
-                    <h3 class="index-title">Índice Alfabético</h3>
-                    <div class="alphabet-grid">
-                        <button class="letter-btn" data-letter="α">Α α</button>
-                        <button class="letter-btn" data-letter="δ">Δ δ</button>
-                        <button class="letter-btn" data-letter="κ">Κ κ</button>
-                        <button class="letter-btn" data-letter="λ">Λ λ</button>
-                        <button class="letter-btn" data-letter="ν">Ν ν</button>
-                        <button class="letter-btn" data-letter="τ">Τ τ</button>
-                        <button class="letter-btn active" data-letter="todos">Todos</button>
+                <!-- Contenedor horizontal para buscador e índice -->
+                <div class="search-index-container">
+                    <!-- Buscador -->
+                    <div class="search-section">
+                        <h3 class="search-title">Buscar por Definiciones</h3>
+                        <input type="text" id="searchInput" class="search-input" placeholder="ej: existencia, razon, mundo, dialectica...">
                     </div>
-                </div>
-                
-                <div class="header-actions">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar términos...">
+                    
+                    <!-- Índice alfabético -->
+                    <div class="alphabet-section">
+                        <h3 class="index-title">Índice Alfabético</h3>
+                        <div class="alphabet-grid">
+                            <button class="letter-btn" data-letter="α">Α α</button>
+                            <button class="letter-btn" data-letter="δ">Δ δ</button>
+                            <button class="letter-btn" data-letter="κ">Κ κ</button>
+                            <button class="letter-btn" data-letter="λ">Λ λ</button>
+                            <button class="letter-btn" data-letter="ν">Ν ν</button>
+                            <button class="letter-btn" data-letter="τ">Τ τ</button>
+                            <button class="letter-btn active" data-letter="todos">Todos</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
 
         <div class="glossary-grid" id="glossaryGrid">
             <!-- Término 1: Τὸ ὄν (El Ser) -->
-            <div class="term-card" data-term="τὸ ὄν el ser" data-first-letter="τ">
+            <div class="term-card" data-term="ser existencia fundamental verdadera ontologia occidental" data-first-letter="τ">
                 <div class="term-header">
                     <h2 class="greek-term">Τὸ ὄν</h2>
                     <div class="term-info">
@@ -67,7 +72,7 @@
             </div>
 
             <!-- Término 2: Τὸ μὴ ὄν (El No-Ser) -->
-            <div class="term-card" data-term="τὸ μὴ ὄν el no-ser" data-first-letter="τ">
+            <div class="term-card" data-term="no-ser inexistencia contradiccion logica ausencia ser heraclito" data-first-letter="τ">
                 <div class="term-header">
                     <h2 class="greek-term">Τὸ μὴ ὄν</h2>
                     <div class="term-info">
@@ -98,7 +103,7 @@
             </div>
 
             <!-- Término 3: Ἀλήθεια (La Verdad) -->
-            <div class="term-card" data-term="ἀλήθεια la verdad" data-first-letter="α">
+            <div class="term-card" data-term="verdad desocultamiento mundo inteligible conocimiento racional" data-first-letter="α">
                 <div class="term-header">
                     <h2 class="greek-term">Ἀλήθεια</h2>
                     <div class="term-info">
@@ -129,7 +134,7 @@
             </div>
 
             <!-- Término 4: Δόξα (La Opinión) -->
-            <div class="term-card" data-term="δόξα la opinión" data-first-letter="δ">
+            <div class="term-card" data-term="opinion apariencia mundo sensible ilusion sentidos experiencia" data-first-letter="δ">
                 <div class="term-header">
                     <h2 class="greek-term">Δόξα</h2>
                     <div class="term-info">
@@ -160,7 +165,7 @@
             </div>
 
             <!-- Término 5: Λόγος (La Razón) -->
-            <div class="term-card" data-term="λόγος la razón" data-first-letter="λ">
+            <div class="term-card" data-term="razon principio racional pensamiento logico identidad dialectica" data-first-letter="λ">
                 <div class="term-header">
                     <h2 class="greek-term">Λόγος</h2>
                     <div class="term-info">
@@ -191,7 +196,7 @@
             </div>
 
             <!-- Término 6: Νοῦς (El Intelecto) -->
-            <div class="term-card" data-term="νοῦς el intelecto" data-first-letter="ν">
+            <div class="term-card" data-term="intelecto mente comprension facultad intelectual pensar" data-first-letter="ν">
                 <div class="term-header">
                     <h2 class="greek-term">Νοῦς</h2>
                     <div class="term-info">
@@ -222,7 +227,7 @@
             </div>
 
             <!-- Término 7: Ταυτότης (El Principio de Identidad) -->
-            <div class="term-card" data-term="ταυτότης principio identidad" data-first-letter="τ">
+            <div class="term-card" data-term="principio identidad logica fundamental unicidad eternidad inmutabilidad" data-first-letter="τ">
                 <div class="term-header">
                     <h2 class="greek-term">Ταυτότης/Ἴδιον</h2>
                     <div class="term-info">
@@ -253,7 +258,7 @@
             </div>
 
             <!-- Término 8: Κόσμος (El Mundo) -->
-            <div class="term-card" data-term="κόσμος el mundo universo" data-first-letter="κ">
+            <div class="term-card" data-term="mundo universo orden cosmos multiplicidad movimiento cambio" data-first-letter="κ">
                 <div class="term-header">
                     <h2 class="greek-term">Κόσμος</h2>
                     <div class="term-info">
@@ -284,7 +289,7 @@
             </div>
 
             <!-- Término 9: Διαλεκτική (La Dialéctica) -->
-            <div class="term-card" data-term="διαλεκτική la dialéctica" data-first-letter="δ">
+            <div class="term-card" data-term="dialectica metodo discusion argumentos zenon eleata debate" data-first-letter="δ">
                 <div class="term-header">
                     <h2 class="greek-term">Διαλεκτική</h2>
                     <div class="term-info">

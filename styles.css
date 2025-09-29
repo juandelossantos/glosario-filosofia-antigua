@@ -41,8 +41,8 @@ body {
 .header {
     background: var(--background-primary);
     border-bottom: 1px solid var(--border-color);
-    padding: 40px 0;
-    margin-bottom: 40px;
+    padding: 30px 0;
+    margin-bottom: 30px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -64,48 +64,73 @@ body {
 .subtitle {
     font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     font-weight: 400;
 }
 
-/* Alphabet Index Styles */
-.alphabet-index {
-    margin-bottom: 32px;
-    padding: 24px;
+/* Search and Index Container */
+.search-index-container {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
     background: var(--background-card);
     border: 1px solid var(--border-color);
     border-radius: 12px;
+    padding: 20px;
     box-shadow: 0 2px 8px var(--shadow-light);
+    margin-bottom: 0;
+}
+
+/* Search Section */
+.search-section {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+/* Alphabet Section */
+.alphabet-section {
+    flex: 1;
+    min-width: 0;
 }
 
 .index-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 16px;
-    text-align: center;
+    margin-bottom: 12px;
+    text-align: left;
 }
 
 .alphabet-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
+    gap: 6px;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .letter-btn {
     background: var(--background-primary);
     border: 2px solid var(--border-color);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 1rem;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: var(--font-family);
     color: var(--text-primary);
-    min-width: 50px;
+    min-width: 44px;
     text-align: center;
 }
 
@@ -134,20 +159,50 @@ body {
     background: var(--background-secondary);
 }
 
-.header-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .search-index-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .search-section {
+        flex: none;
+        width: 100%;
+    }
+    
+    .alphabet-grid {
+        justify-content: center;
+    }
+    
+    .index-title,
+    .search-title {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-index-container {
+        padding: 16px;
+    }
+    
+    .letter-btn {
+        padding: 5px 8px;
+        font-size: 0.85rem;
+        min-width: 40px;
+    }
+    
+    .alphabet-grid {
+        gap: 4px;
+    }
 }
 
 .search-input {
-    padding: 12px 16px;
+    padding: 10px 14px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 300px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    width: 100%;
     max-width: 100%;
     font-family: var(--font-family);
     transition: all 0.3s ease;
@@ -363,29 +418,6 @@ body {
         font-size: 1rem;
     }
     
-    .alphabet-index {
-        padding: 16px;
-        margin-bottom: 20px;
-    }
-    
-    .alphabet-grid {
-        gap: 6px;
-    }
-    
-    .letter-btn {
-        padding: 6px 8px;
-        font-size: 0.9rem;
-        min-width: 40px;
-    }
-    
-    .header-actions {
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .search-input {
-        width: 100%;
-    }
     
     .glossary-grid {
         grid-template-columns: 1fr;
@@ -459,9 +491,8 @@ body {
 
 /* Print styles */
 @media print {
-    .header-actions,
+    .search-index-container,
     .nav-btn,
-    .alphabet-index,
     .footer-actions {
         display: none;
     }
