@@ -315,3 +315,43 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Glosario interactivo con índice alfabético cargado correctamente');
 });
+
+    // Image loading and error handling
+    function initializeImages() {
+        const images = document.querySelectorAll('.concept-image');
+        
+        images.forEach(image => {
+            // Handle successful image load
+            image.addEventListener('load', function() {
+                const placeholder = this.nextElementSibling;
+                if (placeholder && placeholder.classList.contains('image-placeholder')) {
+                    placeholder.style.opacity = '0';
+                    placeholder.style.pointerEvents = 'none';
+                }
+            });
+            
+            // Handle image load error
+            image.addEventListener('error', function() {
+                const placeholder = this.nextElementSibling;
+                if (placeholder && placeholder.classList.contains('image-placeholder')) {
+                    placeholder.style.opacity = '1';
+                    placeholder.style.pointerEvents = 'auto';
+                }
+                this.style.opacity = '0';
+            });
+            
+            // Check if image is already loaded (for cached images)
+            if (image.complete) {
+                if (image.naturalHeight !== 0) {
+                    image.dispatchEvent(new Event('load'));
+                } else {
+                    image.dispatchEvent(new Event('error'));
+                }
+            }
+        });
+    }
+    
+    // Add image initialization to the main initialization
+    initializeAlphabetIndex();
+    handleInitialState();
+    initializeImages();

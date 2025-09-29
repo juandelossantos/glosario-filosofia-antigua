@@ -508,3 +508,145 @@ body {
 .letter-btn.disabled::after {
     display: none;
 }
+
+/* Image container and placeholder styles */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.concept-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.concept-image:hover {
+    opacity: 0.9;
+}
+
+.image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--background-secondary) 0%, rgba(255, 123, 66, 0.05) 100%);
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.placeholder-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.7;
+}
+
+.image-placeholder p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Hide placeholder when image loads */
+.concept-image[src]:not([src=""]) + .image-placeholder {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Show placeholder when image fails to load */
+.concept-image:not([src]),
+.concept-image[src=""] {
+    opacity: 0;
+}
+
+.concept-image:not([src]) + .image-placeholder,
+.concept-image[src=""] + .image-placeholder {
+    opacity: 1;
+}
+
+/* Responsive image adjustments */
+@media (max-width: 768px) {
+    .image-container {
+        height: 160px;
+    }
+    
+    .placeholder-icon {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    
+    .image-placeholder p {
+        font-size: 0.8rem;
+    }
+    
+    .image-placeholder {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-container {
+        height: 140px;
+    }
+    
+    .placeholder-icon {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+    }
+    
+    .image-placeholder p {
+        font-size: 0.75rem;
+    }
+    
+    .image-placeholder {
+        padding: 10px;
+    }
+}
+
+/* Loading animation for images */
+.concept-image {
+    animation: imageLoad 0.5s ease-out;
+}
+
+@keyframes imageLoad {
+    from {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Print styles for images */
+@media print {
+    .image-container {
+        height: 150px;
+        break-inside: avoid;
+    }
+    
+    .image-placeholder {
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+    }
+    
+    .placeholder-icon {
+        color: #666;
+    }
+}
